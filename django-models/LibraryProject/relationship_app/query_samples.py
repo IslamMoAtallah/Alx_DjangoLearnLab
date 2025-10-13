@@ -28,6 +28,7 @@ if not Author.objects.exists():
 
 # --- Queries ---
 # 1️⃣ All books by a specific author
+Author.objects.get(name=author_name).exists()
 author_name = "George Orwell"
 books_by_author = Book.objects.filter(author__name=author_name)
 print(f"Books by {author_name}: {[book.title for book in books_by_author]}")
@@ -40,3 +41,4 @@ print(f"Books in {library_name}: {[book.title for book in library.books.all()]}"
 # 3️⃣ Retrieve the librarian for a library
 librarian = library.librarian
 print(f"Librarian for {library_name}: {librarian.name}")
+
