@@ -1,3 +1,4 @@
+<!-- library_detail.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,7 @@
     <h2>Books in Library:</h2>
     <ul>
         {% for book in library.books.all %}
-            <li>{{ book.title }} by {{ book.author.name }} (Published {{ book.publication_year }})</li>
-        {% empty %}
-            <li>No books in this library.</li>
+        <li>{{ book.title }} by {{ book.author.name }} (Published {{ book.publication_year }})</li>
         {% endfor %}
     </ul>
 </body>
