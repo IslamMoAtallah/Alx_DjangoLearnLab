@@ -9,7 +9,10 @@ class LibraryDetailView(DetailView):
     template_name = 'library_detail.html'
     context_object_name = 'library'
 # Function-Based View
+"relationship_app/list_books.html"
+
 def book_list(request):
     books = Book.objects.all()
 
-    return render(request, 'book_list.html', {'books': books})
+    return render(request, 'list_books.html', {'books': books})
+
