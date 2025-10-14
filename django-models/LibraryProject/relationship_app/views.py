@@ -6,6 +6,9 @@ from .models import Book
 from .models import Library
 from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import permission_required
+from .forms import BookForm
+
 
 # Class-Based View
 class LibraryDetailView(DetailView):
@@ -66,5 +69,6 @@ def librarian_view(request):
     return render(request, 'relationship_app/librarian_view.html')
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
+
 
 
