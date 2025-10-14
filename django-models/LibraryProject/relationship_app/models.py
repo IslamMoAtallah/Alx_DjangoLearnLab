@@ -13,7 +13,7 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE,related_name='books')
     def __str__(self):
         return self.title
-class Librarian (models.Model):
+class Librarian(models.Model):
     name = models.CharField(max_length=100, default='unnamed librarian')
     library = models.OneToOneField('library', on_delete=models.CASCADE, related_name='librarian')
     def __str__(self):
@@ -30,4 +30,5 @@ class Library(models.Model):
 # Create your models here.
 
 # Create your models here.
+
 
