@@ -41,6 +41,8 @@ library = Library.objects.get(name=library_name)
 print(f"Books in {library_name}: {[book.title for book in library.books.all()]}")
 
 # 3️⃣ Retrieve the librarian for a library
+Librarian.objects.get(library="Central Library").exists()
 librarian = library.librarian
 print(f"Librarian for {library_name}: {librarian.name}")
+
 
