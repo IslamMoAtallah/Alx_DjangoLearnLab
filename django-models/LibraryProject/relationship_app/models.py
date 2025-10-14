@@ -16,6 +16,15 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE,related_name='books')
     def __str__(self):
         return self.title
+        def __str__(self):
+        return self.title
+
+    class Meta:
+        permissions = [
+            ("can_add_book", "Can add a new book"),
+            ("can_change_book", "Can edit book details"),
+            ("can_delete_book", "Can delete a book"),
+        ]
 class Librarian(models.Model):
     name = models.CharField(max_length=100, default='unnamed librarian')
     library = models.OneToOneField('library', on_delete=models.CASCADE, related_name='librarian')
@@ -49,6 +58,7 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 # Create your models here.
 
 # Create your models here.
+
 
 
 
