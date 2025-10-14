@@ -11,6 +11,7 @@ class LibraryDetailView(DetailView):
     model = Library
     template_name = 'library_detail.html'
     context_object_name = 'library'
+"relationship_app/library_detail.html"
 # Function-Based View
 "relationship_app/list_books.html"
 def list_books(request):
@@ -50,4 +51,5 @@ def logout_view(request):
     logout(request)
     messages.info(request, 'You have been logged out.')
     return redirect('login')
+
 
