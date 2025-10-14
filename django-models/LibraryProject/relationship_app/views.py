@@ -4,6 +4,7 @@ from .models import Library
 from django.views.generic import DetailView
 
 # Class-Based View
+"relationship_app/library_detail.html"
 class LibraryDetailView(DetailView):
     model = Library
     template_name = 'library_detail.html'
@@ -15,4 +16,5 @@ def book_list(request):
     books = Book.objects.all()
 
     return render(request, 'list_books.html', {'books': books})
+
 
