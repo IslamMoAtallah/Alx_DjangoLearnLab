@@ -2,7 +2,12 @@ from .models import Book
 from django.contrib import admin
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User,CustomUser  # Import the User model
+from .models import User,CustomUser 
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .models import CustomUser, User, CustomUserManager
+admin.site.register(CustomUser,CustomUserAdmin)
+# Import the User model
 #CustomUser
 class CustomUserAdmin(BaseUserAdmin):
     model= CustomUser
@@ -31,4 +36,5 @@ admin.site.register(Book)
 
 
 # Register your models here.
+
 
