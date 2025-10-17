@@ -4,9 +4,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User,CustomUser 
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser, User, CustomUserManager
-admin.site.register(CustomUser,CustomUserAdmin)
+
 # Import the User model
 #CustomUser
 class CustomUserAdmin(BaseUserAdmin):
@@ -18,7 +18,7 @@ class CustomUserAdmin(BaseUserAdmin):
     add_fieldsets = BaseUserAdmin.add_fieldsets + (
         (None,{'fields':('date_of_birth','profile_photo')}),
     )
-admin.site.register(CustomUser,CustomUserAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)
 # Register your models here.
 class UserAdmin(BaseUserAdmin):
     model = User
@@ -36,5 +36,6 @@ admin.site.register(Book)
 
 
 # Register your models here.
+
 
 
