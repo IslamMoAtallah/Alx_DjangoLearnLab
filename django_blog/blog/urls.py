@@ -17,9 +17,11 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),  # for password reset and other
     path('comment/<int:pk>/update/', include('blog.urls')),  # for comments
     path('comment/<int:pk>/delete/', include('blog.urls')),  # for comments
-    path('comment/new/', include('blog.urls')),  # for comments
+    path('comment/new/', include('blog.urls')),
+    path('post/<int:pk>/comments/', include('blog.urls')),  # for comments# for comments
 ]
 ]
+
 
 
 
