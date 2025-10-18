@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.contrib.auth import get_user_model
+User = get_user_model()
 # Custom user manager
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
@@ -26,6 +28,15 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
+    def __str__(self):
+        return self.username
+    class Meta:
+        Permissions:[
+            ('can_view', 'Can view profile'),
+            ('can_edit', 'Can edit profile'),
+            ('can_create', 'Can create profile'),
+            ('can_delete', 'Can delete profile'),
+            ]
     def __str__(self):
         return self.username
     
@@ -65,7 +76,28 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+class User(AbstractUser):
+    bio = models.TextField(blank=True, default='')
+    profile_picture = models.ImageField(upload_to=user_profile_picture_path, null=True, blank=True)
+    
+    # followers: other users who follow this user
+    followers = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        related_name='following',
+        blank=True
+    )
+
+    def follower_count(self):
+        return self.followers.count()
+
+    def following_count(self):
+        return self.following.count()
+
+    def __str__(self):
+        return self.userna
 
 # Create your models here.
+
 
 
