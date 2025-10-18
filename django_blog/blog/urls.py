@@ -15,7 +15,11 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='blog/logout.html'), name='logout'),
     path('accounts/', include('django.contrib.auth.urls')),  # for password reset and other
-    
+    path('comment/<int:pk>/update/', include('blog.urls')),  # for comments
+    path('comment/<int:pk>/delete/', include('blog.urls')),  # for comments
+    path('comment/new/', include('blog.urls')),  # for comments
 ]
+]
+
 
 
