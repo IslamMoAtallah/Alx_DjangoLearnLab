@@ -1,10 +1,14 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import login 
 from django.contrib.auth.views import LoginView, LogoutView
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from .models import Post, profile
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, PostForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .models import Post, profile, Comment
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.db.models import Q
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -135,6 +139,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == post.author
 
 # Additional views can be added as needed
+
 
 
 
