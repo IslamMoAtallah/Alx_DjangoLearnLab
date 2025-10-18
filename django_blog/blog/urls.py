@@ -18,9 +18,10 @@ urlpatterns = [
     path('comment/<int:pk>/update/', include('blog.urls')),  # for comments
     path('comment/<int:pk>/delete/', include('blog.urls')),  # for comments
     path('comment/new/', include('blog.urls')),
-    path('post/<int:pk>/comments/', include('blog.urls')),  # for comments# for comments
+    path('post/<int:pk>/comments//new/', include('blog.urls')),  # for comments# for comments
 ]
 ]
+
 
 
 
