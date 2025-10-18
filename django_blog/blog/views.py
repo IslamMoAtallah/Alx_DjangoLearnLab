@@ -41,3 +41,64 @@ def profile_view(request):
 
 
 # Create your views here.
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .models import Post
+from .forms import PostForm
+
+# List view - public
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'  # blog/post_list.html
+    context_object_name = 'posts'
+    paginate_by = 10
+
+# Detail view - public
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'  # blog/post_detail.html
+    context_object_name = 'post'
+
+# Create view - authenticated users only
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_form.html'  # blog/post_form.html
+
+    def form_valid(self, form):
+        # Set the logged-in user as the author
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'pk': self.object.pk})
+
+# Update view - only author can edit
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
+
+    def handle_no_permission(self):
+        # default behaviour: redirect to login; raise 403 instead if you prefer
+        return super().handle_no_permission()
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'pk': self.object.pk})
+
+# Delete view - only author can delete
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    template_name = 'blog/post_confirm_delete.html'  # blog/post_confirm_delete.html
+    success_url = reverse_lazy('post-list')
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
+    
+
