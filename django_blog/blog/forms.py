@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post , Profile
+from .models import Post , Profile, comment
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -35,3 +35,14 @@ class PostForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'placeholder': 'Post title', 'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5 , 'placeholder': 'Write your post here...'}),
         }
+     def clean_tag_names(self):
+        data = self.cleaned_data.get('tag_names', '')
+        names = [n.strip() for n in data.split(',') if n.strip()]
+        seen = set()
+        uniq=[]
+        for n in names:
+            key = n.lower()
+            if key not in seen:
+                seen.add(key)
+                uniq.append(n)
+        return uniq
