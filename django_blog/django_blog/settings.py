@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'BlogConfig',
+    'taggit',
+
 
 ]
 
@@ -141,3 +143,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     #         },
     #     }
     # }
+
