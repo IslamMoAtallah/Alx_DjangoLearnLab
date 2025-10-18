@@ -189,4 +189,8 @@ SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 # 3. For local development, you can temporarily disable SECURE_SSL_REDIRECT = False
 #    to test using HTTP (but always keep it True in production).
 # ============================================
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+HTTP_X_FORWARDED_PROTO = 'https'
+SESSION_COOKIE_SECURE = True
+
 
