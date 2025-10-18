@@ -99,5 +99,11 @@ def delete_post(request, post_id):
         post.delete()
         return redirect('post_list')
     return render(request, 'posts/delete_post.html', {'post': post})
+book_list = Book.objects.all()
+return render(request, 'books/book_list.html', {'books': book_list})
+def book_list(request):
+    book_list = Book.objects.all()
+    return render(request, 'books/book_list.html', {'books': book_list})
     # return render(request, 'bookshelf/index.html', {'books': books}),  
+
 
