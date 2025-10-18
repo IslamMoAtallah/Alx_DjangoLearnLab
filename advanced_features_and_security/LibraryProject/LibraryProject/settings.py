@@ -129,3 +129,64 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'accounts.User'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+AUTH_USER_MODEL = 'accounts.CustomUser'
+# Redirect all HTTP traffic to HTTPS
+SECURE_SSL_REDIRECT = True
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+# ============================================
+# 🔒 SECURITY SETTINGS — HTTPS & HEADERS
+# ============================================
+
+# Redirect all HTTP traffic to HTTPS
+SECURE_SSL_REDIRECT = True  # Forces all traffic to use HTTPS
+
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # Enforce HTTPS for 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allow preloading of the site to HSTS lists
+
+# ============================================
+# 🍪 COOKIE SECURITY
+# ============================================
+
+# Ensures cookies are only sent via HTTPS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# ============================================
+# 🧱 SECURITY HEADERS
+# ============================================
+
+# Prevent browsers from guessing content type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enables built-in browser protection against XSS attacks
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevents the site from being embedded in an iframe (Clickjacking protection)
+X_FRAME_OPTIONS = "DENY"
+
+# ============================================
+# 🧩 ADDITIONAL SECURITY RECOMMENDATIONS
+# ============================================
+
+# Use a secure referrer policy to protect user data
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
+# Use only HTTPS for CSRF trusted origins (optional if using a specific domain)
+# CSRF_TRUSTED_ORIGINS = ['https://yourdomain.com']
+
+# ============================================
+# ✅ NOTES:
+# 1. These settings enforce HTTPS and strong browser security.
+# 2. Make sure you have valid SSL/TLS certificates configured on your server.
+# 3. For local development, you can temporarily disable SECURE_SSL_REDIRECT = False
+#    to test using HTTP (but always keep it True in production).
+# ============================================
+
