@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'accounts',
+    'posts',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -131,4 +133,5 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 HTTP_X_FORWARDED_PROTO = 'https'
+
 SESSION_COOKIE_SECURE = True
