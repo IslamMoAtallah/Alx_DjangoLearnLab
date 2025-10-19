@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Post
 from .serializers import PostSerializer, CommentSerializer
+Post.objects.filter(author__in=following_users).order_by
 Comment.objects.all() 
 # Create your views here.
 # Post ViewSet
@@ -44,4 +45,5 @@ class CommentViewSet(viewsets.ModelViewSet):
                 serializer.save(user=request.user, post=post)
                 return Response(serializer.data, status=201)
             return Response(serializer.errors, status=400)
+
 
