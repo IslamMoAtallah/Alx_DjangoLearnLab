@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, get_user_model
 from rest_framework.authtoken.models import Token
 from .serializers import RegisterSerializer, UserSerializer, LoginSerializer
 from rest_framework.decorators import api_view, permission_classes
-
+generics.GenericAPIView = CustomUser.objects.all()
 User = get_user_model()
 
 
@@ -130,3 +130,4 @@ class FollowingListView(generics.ListAPIView):
         pk = self.kwargs.get('user_id')
         user = get_object_or_404(User, id=pk)
         return user.following.all()  # users whom 'user' follow
+
