@@ -5,7 +5,7 @@ from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Post
 from .serializers import PostSerializer, CommentSerializer
-
+Comment.objects.all() 
 # Create your views here.
 # Post ViewSet
 class PostViewSet(viewsets.ModelViewSet):
@@ -19,6 +19,17 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all().order_by('-created_at')
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_fields = ['user__username', 'post__id', 'created_at']
+    search_fields = ['content', 'user__username']
+    ordering_fields = ['created_at', 'updated_at']
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
     @action(detail=True, methods=['get', 'post'], permission_classes=[permissions.IsAuthenticatedOrReadOnly])
     def comments(self, request, pk=None):
@@ -33,3 +44,4 @@ class PostViewSet(viewsets.ModelViewSet):
                 serializer.save(user=request.user, post=post)
                 return Response(serializer.data, status=201)
             return Response(serializer.errors, status=400)
+
