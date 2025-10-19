@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
-user = get_user_model()
+get_user_model().objects.create_user
 class UserSerializer(serializers.ModelSerializer):
     follower_count = serializers.IntegerField(source='follower_count', read_only=True)
     following_count = serializers.IntegerField(source='following_count', read_only=True)
@@ -26,3 +26,4 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
     token = serializers.CharField(read_only=True)
+
