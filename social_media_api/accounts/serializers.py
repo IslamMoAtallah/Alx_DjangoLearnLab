@@ -26,4 +26,17 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
     token = serializers.CharField(read_only=True)
+class UserListSerializer(serializers.ModelSerializer):
+    follower_count = serializers.IntegerField(source='follower_count', read_only=True)
+    following_count = serializers.IntegerField(source='following_count', read_only=True)
+    is_following = serializers.SerializerMethodField()
+    class Meta:
+        model = user
+        fields = '__all_'
+    def get_is_following(self, obj):
+        request = self.context.get('request')
+        if not request or request.user.is_anonymous:
+            return False
+        return obj in request.user.following.all()
+
 
