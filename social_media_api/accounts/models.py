@@ -24,6 +24,10 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
+    bio = models.TextField(blank=True)
+    followers = models.ManyToManyField('self', symmetrical=False, related_name='following', blank=True) 
+    following = models.ManyToManyField('self', symmetrical=False, related_name='followers_set', blank=True)
+
 
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
@@ -66,3 +70,4 @@ class User(AbstractUser):
 
 
 # Create your models here.
+
