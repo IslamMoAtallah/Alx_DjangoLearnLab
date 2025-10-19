@@ -98,3 +98,35 @@ return render(request, 'books/book_list.html', {'books': book_list})
 def book_list(request):
     book_list = Book.objects.all()
     return render(request, 'books/book_list.html', {'books': book_list})
+
+def post(self, request, user_id):
+        target = get_object_or_404(User, id=user_id)
+        if target == request.user:
+            return Response({"detail": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
+        request.user.following.add(target)
+        return Response({"detail": f"You are now following {target.username}."}, status=status.HTTP_200_OK)
+
+    def delete(self, request, user_id):
+        target = get_object_or_404(User, id=user_id)
+        request.user.following.remove(target)
+        return Response({"detail": f"You unfollowed {target.username}."}, status=status.HTTP_200_OK)
+
+
+class FollowersListView(generics.ListAPIView):
+    serializer_class = UserListSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        pk = self.kwargs.get('user_id')
+        user = get_object_or_404(User, id=pk)
+        return user.followers.all()  # users who follow 'user'
+
+
+class FollowingListView(generics.ListAPIView):
+    serializer_class = UserListSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_queryset(self):
+        pk = self.kwargs.get('user_id')
+        user = get_object_or_404(User, id=pk)
+        return user.following.all()  # users whom 'user' follow
